@@ -1,9 +1,9 @@
 # .github/workflows/ping.yml
-name: Parallel Ping Websites Every 5 Minutes
+name: Parallel Ping Websites Every 2 Minutes
 
 on:
   schedule:
-    - cron: '*/2 * * * *'  # every 5 minutes
+    - cron: '*/2 * * * *'  # every 2 minutes
   workflow_dispatch:
 
 jobs:
